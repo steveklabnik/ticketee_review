@@ -12,11 +12,13 @@
 
 <%= link_to "New Ticket", new_project_ticket_path(@project) %>
 
-<%= link_to "Edit Project", edit_project_path(@project) %>
-<%= link_to "Delete Project",
-      project_path(@project),
-      method: :delete,
-      data: { 
-        confirm: "Are you sure you want to delete this project?"
-      }
-%>
+<% admins_only do %>
+  <%= link_to "Edit Project", edit_project_path(@project) %>
+  <%= link_to "Delete Project",
+        project_path(@project),
+        method: :delete,
+        data: { 
+          confirm: "Are you sure you want to delete this project?"
+        }
+  %>
+<% end %>
