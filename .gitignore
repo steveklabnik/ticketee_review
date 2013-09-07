@@ -15,4 +15,4 @@
 /log/*.log
 /tmp
 
-public/uploads
+uploads
