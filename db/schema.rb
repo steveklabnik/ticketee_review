@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130906220453) do
+ActiveRecord::Schema.define(version: 20130907001144) do
 
   create_table "permissions", force: true do |t|
     t.integer  "user_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20130906220453) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "asset"
   end
 
   add_index "tickets", ["project_id"], name: "index_tickets_on_project_id"

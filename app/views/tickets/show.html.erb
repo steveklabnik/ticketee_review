@@ -1,7 +1,20 @@
 <div id='ticket'>
   <h2><%= @ticket.title %></h2>
+
   <%= simple_format(@ticket.description) %>
   <span id='author'>Created by <%= @ticket.user.email %></span>
+
+  <% if @ticket.asset.present? %>
+    <h3>Attached File</h3>
+    <div class="asset">
+      <p>
+        <%= link_to File.basename(@ticket.asset.path),
+                     @ticket.asset.url %> 1
+      </p>
+      <p><small><%= number_to_human_size(@ticket.asset.size) %>
+       </small></p>
+    </div>
+  <% end %>
   <%= authorized?("edit tickets", @project) do %>
     <%= link_to "Edit Ticket", [:edit, @project, @ticket] %>
   <% end %>
@@ -10,3 +23,4 @@
     data: { confirm: "Are you sure you want to delete this ticket?"} %>
   <% end %>
 </div>
+
