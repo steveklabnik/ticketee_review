@@ -4,15 +4,17 @@
   <%= simple_format(@ticket.description) %>
   <span id='author'>Created by <%= @ticket.user.email %></span>
 
-  <% if @ticket.asset.present? %>
-    <h3>Attached File</h3>
-    <div class="asset">
-      <p>
-        <%= link_to File.basename(@ticket.asset.path),
-                     @ticket.asset.url %> 1
-      </p>
-      <p><small><%= number_to_human_size(@ticket.asset.size) %>
-       </small></p>
+  <% if @ticket.assets.present? %>
+    <h3>Attached Files</h3>
+    <div class="assets">
+      <% @ticket.assets.each do |asset| %>
+        <p>
+          <%= link_to File.basename(asset.asset.path), asset.asset.url %>
+        </p>
+        <p>
+          <small><%= number_to_human_size(asset.asset.size) %></small>
+        </p>
+      <% end %>
     </div>
   <% end %>
   <%= authorized?("edit tickets", @project) do %>
