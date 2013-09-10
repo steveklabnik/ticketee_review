@@ -7,6 +7,7 @@ feature "Creating comments" do
 
   before do
     define_permission!(user, "view", project)
+    FactoryGirl.create(:state, name: "Open")
 
     sign_in_as!(user)
     visit '/'
@@ -28,5 +29,16 @@ feature "Creating comments" do
     click_button "Create Comment"
     expect(page).to have_content("Comment has not been created.")
     expect(page).to have_content("Text can't be blank")
+  end
+
+  scenario "Changing a ticket's state" do
+    click_link ticket.title
+    fill_in "Text", with: "This is a real issue"
+    select "Open", from: "State"
+    click_button "Create Comment"
+    expect(page).to have_content("Comment has been created.")
+    within("#ticket .state") do
+      expect(page).to have_content("Open")
+    end
   end
 end

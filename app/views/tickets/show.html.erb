@@ -3,6 +3,7 @@
 
   <%= simple_format(@ticket.description) %>
   <span id='author'>Created by <%= @ticket.user.email %></span>
+  <%= render @ticket.state if @ticket.state %>
 
   <% if @ticket.assets.present? %>
     <h3>Attached Files</h3>
