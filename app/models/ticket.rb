@@ -16,6 +16,24 @@ class Ticket < ActiveRecord::Base
 
   before_create :associate_tags
 
+  def self.search(query)
+    query
+      .split(" ")
+      .collect do |query|
+        query.split(":")
+      end.inject(self) do |klass, (name, q)|
+        plural_name = name.pluralize.to_sym
+        association = klass.reflect_on_association(plural_name)
+        association_table = association.klass.arel_table
+
+        if [:has_and_belongs_to_many, :belongs_to].include?(association.macro)
+          joins(plural_name).where(association_table["name"].eq(q))
+        else
+          all
+        end
+      end
+  end
+
   private
 
     def associate_tags
