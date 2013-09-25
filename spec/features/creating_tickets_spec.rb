@@ -6,6 +6,7 @@ feature "Creating Tickets" do
     user = FactoryGirl.create(:user)
     define_permission!(user, "view", project)
     define_permission!(user, "create tickets", project)
+    define_permission!(user, "tag", project)
     @email = user.email
     sign_in_as!(user)
 

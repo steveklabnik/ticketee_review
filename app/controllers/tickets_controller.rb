@@ -12,6 +12,10 @@ class TicketsController < ApplicationController
   end
 
   def create
+    if cannot?(:tag, @project)
+      params[:ticket].delete(:tag_names)
+    end
+
     @ticket = @project.tickets.build(ticket_params) 
     @ticket.user = current_user
 
