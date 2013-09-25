@@ -21,10 +21,7 @@
     <%= f.text_area :description %>
   </p>
 
-  <p>
-    <%= f.label :tag_names, "Tags" %>
-    <%= f.text_field :tag_names %>
-  </p>
+  <%= render "tags/form", f: f %>
 
   <% number = 0 %>
   <div id="files">
