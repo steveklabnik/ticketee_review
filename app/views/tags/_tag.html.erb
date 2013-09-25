@@ -5,5 +5,12 @@
       remote: true,
       id: "delete-#{tag.name.parameterize}" %>
 <% end %>
-<%= tag.name %>
-<span class='tag'><%= tag.name %></span>
+
+<span class='tag'>
+<%= link_to tag.name,
+            search_project_tickets_path(
+              @ticket.project,
+              search: "tag:#{tag.name}"
+            )
+%>
+</span>
