@@ -1,1 +1,10 @@
-<%= project_ticket_url(@ticket.project, @ticket) %>
+Hello!
+
+<%= @ticket.title %> for <%= @project.name %> has been updated.
+
+<%= @comment.user.email %> wrote:
+
+<%= @comment.text %>
+
+You can view this ticket online by going to:
+<%= project_ticket_url(@project, @ticket) %>
