@@ -29,6 +29,12 @@
   <% end %>
 </div>
 
+<span id='watchers'>
+  <%= toggle_watching_button %>
+  <strong>Watchers:</strong>
+  <%= @ticket.watchers.map(&:email).to_sentence %>
+</span>
+
 <div id='comments'>
   <% if @ticket.comments.exists? %>
     <%= render @ticket.comments.select(&:persisted?) %>
