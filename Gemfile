@@ -50,6 +50,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.2.1'
   gem 'selenium-webdriver', '~> 2.35.1'
   gem 'database_cleaner', '~> 1.0.1'
+  gem 'email_spec', '~> 1.5.0'
 end
 
 gem 'cancan', "~> 1.6.10"

@@ -5,14 +5,16 @@ class CommentsController < ApplicationController
   def create
     sanitize_parameters!
 
-    @comment = @ticket.comments.build(comment_params)
-    @comment.user = current_user
+    @comment = CommentWithNotifications.create(@ticket.comments,
+                                               current_user,
+                                               comment_params)
 
     if @comment.save
       flash[:notice] = "Comment has been created."
       redirect_to [@ticket.project, @ticket]
     else
       @states = State.all
+      @comment = @comment.comment
       flash[:alert] = "Comment has not been created."
       render template: "tickets/show"
     end

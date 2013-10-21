@@ -5,6 +5,8 @@ class Ticket < ActiveRecord::Base
   has_many :assets
   has_many :comments
   has_and_belongs_to_many :tags
+  has_and_belongs_to_many :watchers, join_table: "ticket_watchers",
+                                     class_name: "User"
 
   attr_accessor :tag_names
 
@@ -15,6 +17,7 @@ class Ticket < ActiveRecord::Base
                           length: { minimum: 10 }
 
   before_create :associate_tags
+  after_create :creator_watches_me
 
   def self.search(query)
     query
@@ -22,16 +25,10 @@ class Ticket < ActiveRecord::Base
       .collect do |query|
         query.split(":")
       end.inject(self) do |klass, (name, q)|
-        association = klass.reflect_on_association(name.to_sym)
-        unless association
-          name = name.pluralize
-          association = klass.reflect_on_association(name.to_sym)
-        end
-
-        association_table = association.klass.arel_table
-
-        if [:has_and_belongs_to_many, :belongs_to].include?(association.macro)
-          joins(name.to_sym).where(association_table["name"].eq(q))
+        if name == "state"
+          joins(:state).where(name: q)
+        elsif name == "tags"
+          joins(:tickets_tags).where(name: q)
         else
           all
         end
@@ -45,6 +42,12 @@ class Ticket < ActiveRecord::Base
         tag_names.split(" ").each do |name|
           self.tags << Tag.find_or_create_by(name: name)
         end
+      end
+    end
+
+    def creator_watches_me
+      if user
+        self.watchers << user unless self.watchers.include?(user)
       end
     end
 end
