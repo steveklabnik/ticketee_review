@@ -9,6 +9,8 @@ class Notifier < ActionMailer::Base
 
     subject = "[ticketee] #{@project.name} - #{@ticket.title}"
 
-    mail(to: user.email, subject: subject)
+    mail(to: user.email, subject: subject,
+         reply_to: "Ticketee App <youraccount+" +
+         "#{@project.id}+#{@ticket.id}@example.com>")
   end
 end
