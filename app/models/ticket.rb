@@ -20,19 +20,24 @@ class Ticket < ActiveRecord::Base
   after_create :creator_watches_me
 
   def self.search(query)
-    query
-      .split(" ")
-      .collect do |query|
-        query.split(":")
-      end.inject(self) do |klass, (name, q)|
-        if name == "state"
-          joins(:state).where(name: q)
-        elsif name == "tags"
-          joins(:tickets_tags).where(name: q)
-        else
-          all
-        end
+    terms = {}
+    query.split(" ")
+      .map do |query|
+        k, v = query.split(":")
+        terms[k] = v
       end
+
+    relation = all
+
+    if terms.has_key?("tag")
+      relation = joins(:tags).where("tags.name = ?", terms['tag']) 
+    end
+
+    if terms.has_key?("state")
+      relation = joins(:state).where("states.name = ?", terms['state']) 
+    end
+
+    relation
   end
 
   private
