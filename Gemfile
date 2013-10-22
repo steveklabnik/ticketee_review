@@ -56,3 +56,5 @@ end
 gem 'cancan', "~> 1.6.10"
 gem 'carrierwave', '~> 0.9.0'
 gem 'fog', '~> 1.16.0'
+
+gem 'rails_12factor', group: :production
