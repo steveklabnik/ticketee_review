@@ -1,6 +1,13 @@
 language: ruby
 rvm: 2.0.0
-script: "bin/rake spec"
+script: bin/rake spec
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+deploy:
+  provider: heroku
+  api_key:
+    secure: i/dFL8l91JxZNxx8J+8R+0sYG7Mo7PM4CjHDEfhyT51uxiFJI4iArxmLsgQ0fa4rZcrCST6UR8J3JWYZMX4mChxVmA94UIoliLlFdOgRbfY3609YwxJRIvxBSLSW7mMoVWBzM6FkjYMsjG68oj9rfKioSRe4+Gs+unaxSQLu9c4=
+  app: thawing-citadel-4773
+  on:
+    repo: steveklabnik/ticketee
