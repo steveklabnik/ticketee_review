@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'puma/capistrano'
 
 set :user, 'vagrant'
 set :use_sudo, false
@@ -17,4 +18,3 @@ before "deploy:assets:precompile", "preconfigure"
 task :preconfigure, :roles => :db do
   run "cd #{release_path} && RAILS_ENV=production bin/rake db:migrate"
 end
-

@@ -87,4 +87,8 @@ Ticketee::Application.configure do
     password:             ENV['GMAIL_PASSWORD'],
     authentication:       'plain',
     enable_starttls_auto: true  }
+
+  config.action_controller.default_url_options = {
+    :port => 8080
+  }
 end

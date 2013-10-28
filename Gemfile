@@ -59,3 +59,4 @@ gem 'fog', '~> 1.16.0'
 gem 'rails_12factor', group: :production
 
 gem 'capistrano',  '= 2.15.4'
+gem 'puma'
