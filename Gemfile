@@ -3,8 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-gem 'sqlite3', group: [:development, :test]
-gem 'pg',      group:  :production
+gem 'sqlite3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -58,3 +57,5 @@ gem 'carrierwave', '~> 0.9.0'
 gem 'fog', '~> 1.16.0'
 
 gem 'rails_12factor', group: :production
+
+gem 'capistrano',  '= 2.15.4'
