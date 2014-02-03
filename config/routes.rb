@@ -45,4 +45,8 @@ Ticketee::Application.routes.draw do
   post "/signin", to: "sessions#create"
 
   delete "/signout", to: "sessions#destroy", as: "signout"
+
+   namespace :api do
+     resources :tickets
+   end
 end
